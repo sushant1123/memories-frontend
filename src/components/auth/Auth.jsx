@@ -9,17 +9,26 @@ import Input from "./Input";
 import Icon from "./Icon";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { signin, signup } from "../../redux/actions/auth.actions.js";
+import { USER_AUTH } from "../../redux/constants/auth.constants";
+
+const initialUserState = {
+	firstName: "",
+	lastName: "",
+	email: "",
+	password: "",
+	confirmPassword: "",
+};
 
 const Auth = () => {
 	const classes = useStyles();
 	const [isSignup, setIsSignup] = useState(false);
 	const [showPassword, setShowPassword] = useState(false);
+	const [formData, setFormData] = useState(initialUserState);
 
 	const navigate = useNavigate();
 
 	const dispatch = useDispatch();
-
-	const handleChange = (e) => {};
 
 	const googleSuccess = async (response) => {
 		// const result = response.profileObj; // if we do not have response obj then we get cannot read property profileObj of undefined
@@ -28,7 +37,7 @@ const Auth = () => {
 		const token = response?.tokenId; //undefined     ? is a chaining operator
 
 		try {
-			dispatch({ type: "USER_AUTH", payload: { result, token } });
+			dispatch({ type: USER_AUTH, payload: { result, token } });
 
 			//after successfully sign in, automatically navigate to home route
 			navigate("/");
@@ -44,17 +53,34 @@ const Auth = () => {
 
 	//show signup or signin mode based on onClick
 	const switchMode = () => {
-		setIsSignup(!isSignup);
+		setFormData(initialUserState);
+		// setIsSignup(!isSignup);
+		setIsSignup((prevIsSignup) => !prevIsSignup);
 		setShowPassword(false);
 	};
 
 	//on click on eye icon, show password
 	const handleShowPassword = () => {
-		// setShowPassword(!showPassword);
-		setShowPassword((prevState) => !prevState);
+		setShowPassword(!showPassword);
+		// setShowPassword((prevState) => !prevState);
 	};
 
-	const handleSubmit = () => {};
+	const handleChange = (e) => {
+		const { name, value } = e.target;
+
+		setFormData({ ...formData, [name]: value });
+	};
+
+	const handleSubmit = (e) => {
+		e.preventDefault();
+		// console.log(formData);
+
+		if (isSignup) {
+			dispatch(signup(formData, navigate));
+		} else {
+			dispatch(signin(formData, navigate));
+		}
+	};
 
 	return (
 		<Container component={"main"} maxWidth="xs">
