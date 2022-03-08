@@ -1,5 +1,5 @@
 import * as api from "../../api/index.api";
-import { USER_AUTH, USER_LOGOUT } from "../constants/auth.constants";
+import { USER_AUTH } from "../constants/auth.constants";
 
 //action creators
 export const signup = (formData, navigate) => async (dispatch) => {
@@ -10,8 +10,6 @@ export const signup = (formData, navigate) => async (dispatch) => {
 		dispatch({ type: USER_AUTH, payload: data });
 		//navigate to the home page
 		navigate("/");
-
-		// dispatch({type:USER_AUTH, })
 	} catch (error) {
 		console.log(error);
 	}
