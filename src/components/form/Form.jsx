@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { TextField, Button, Typography, Paper } from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux";
 import FileBase from "react-file-base64";
+import { useNavigate } from "react-router-dom";
 
 import { createNewPost, updatePost } from "../../redux/actions/posts.actions";
 import useStyles from "./form.styles";
@@ -17,9 +18,10 @@ const Form = ({ currentId, setCurrentId }) => {
 	const classes = useStyles();
 	const [postData, setPostData] = useState(postDataState);
 	const post = useSelector((state) =>
-		currentId ? state.posts.find((post) => post._id === currentId) : null
+		currentId ? state.posts.posts.find((post) => post._id === currentId) : null
 	);
 	const dispatch = useDispatch();
+	const navigate = useNavigate();
 	const user = JSON.parse(localStorage.getItem("profile"));
 
 	useEffect(() => {
@@ -41,7 +43,7 @@ const Form = ({ currentId, setCurrentId }) => {
 			dispatch(updatePost(currentId, { ...postData, name: user?.result?.name }));
 		} else {
 			//dispatch an action to create a post
-			dispatch(createNewPost({ ...newPost, name: user?.result?.name }));
+			dispatch(createNewPost({ ...newPost, name: user?.result?.name }, navigate));
 		}
 		clearInputs();
 	};
@@ -71,7 +73,7 @@ const Form = ({ currentId, setCurrentId }) => {
 	}
 
 	return (
-		<Paper className={classes.paper}>
+		<Paper className={classes.paper} elevation={6}>
 			<form
 				autoComplete="off"
 				noValidate
@@ -122,7 +124,6 @@ const Form = ({ currentId, setCurrentId }) => {
 					size="large"
 					type="submit"
 					fullWidth
-					// style={{ marginBottom: "10px" }}
 				>
 					Submit
 				</Button>

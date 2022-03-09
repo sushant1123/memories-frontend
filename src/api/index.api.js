@@ -3,9 +3,12 @@ import axios from "../helpers/axios";
 // const url = "/posts/";
 
 //posts
+export const fetchPost = (id) => axios.get(`/posts/${id}`);
 export const fetchPosts = (page) => axios.get(`/posts?page=${page}`);
+
 export const fetchPostsBySearch = (searchQuery) =>
 	axios.get(`/posts/search?searchQuery=${searchQuery.search || "none"}&tags=${searchQuery.tags}`);
+
 export const createPost = (formData) => axios.post("/posts/", { post: formData });
 export const updatePost = (id, updatedData) => axios.patch(`/posts/${id}`, updatedData);
 export const deletePost = (id) => axios.delete(`/posts/${id}`);

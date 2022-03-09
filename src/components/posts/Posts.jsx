@@ -2,13 +2,16 @@ import React from "react";
 import Post from "./post/Post";
 import useStyles from "./posts.styles";
 import { useSelector } from "react-redux";
-import { Grid, CircularProgress } from "@material-ui/core";
+import { Grid, CircularProgress, Typography } from "@material-ui/core";
+import { START_LOADING, END_LOADING } from "../../redux/constants/loading.constants";
 
 const Posts = ({ setCurrentId }) => {
 	const classes = useStyles();
-	const { posts } = useSelector((state) => state.posts);
+	const { posts, isLoading } = useSelector((state) => state.posts);
 
-	return !posts?.length ? (
+	if (!posts.length && !isLoading) return <Typography variant="h2">No Posts</Typography>;
+
+	return isLoading ? (
 		<CircularProgress />
 	) : (
 		<Grid className={classes.container} container alignItems="stretch" spacing={3}>
