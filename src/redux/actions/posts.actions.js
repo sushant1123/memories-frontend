@@ -3,6 +3,7 @@ import {
 	CREATE_POST,
 	UPDATE_POST,
 	FETCH_ALL_POSTS,
+	FETCH_ALL_POSTS_BY_SEARCH,
 	DELETE_POST,
 	LIKE_POST,
 } from "../constants/posts.constants";
@@ -12,6 +13,19 @@ export const getPosts = () => async (dispatch) => {
 	try {
 		const { data } = await api.fetchPosts();
 		dispatch({ type: FETCH_ALL_POSTS, payload: data });
+	} catch (error) {
+		console.log(error);
+	}
+};
+
+export const getPostsBySearch = (searchQuery) => async (dispatch) => {
+	try {
+		//destructure data from data object
+		const {
+			data: { data },
+		} = await api.fetchPostsBySearch(searchQuery);
+
+		dispatch({ type: FETCH_ALL_POSTS_BY_SEARCH, payload: data });
 	} catch (error) {
 		console.log(error);
 	}

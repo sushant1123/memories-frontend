@@ -4,6 +4,7 @@ import {
 	FETCH_ALL_POSTS,
 	DELETE_POST,
 	LIKE_POST,
+	FETCH_ALL_POSTS_BY_SEARCH,
 } from "../constants/posts.constants";
 
 const initialPostState = [];
@@ -11,6 +12,9 @@ const initialPostState = [];
 const postReducer = (posts = initialPostState, action) => {
 	switch (action.type) {
 		case FETCH_ALL_POSTS:
+			return action.payload;
+
+		case FETCH_ALL_POSTS_BY_SEARCH:
 			return action.payload;
 
 		case CREATE_POST:

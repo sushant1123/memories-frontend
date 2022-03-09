@@ -4,7 +4,8 @@ import { AppBar, Avatar, Button, Toolbar, Typography } from "@material-ui/core";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import decode from "jwt-decode";
 
-import memories from "../../assets/memories.jpg";
+import memoriesLogo from "../../assets/memories-Logo.png";
+import memoriesText from "../../assets/memories-Text.png";
 import { USER_LOGOUT } from "../../redux/constants/auth.constants";
 import useStyles from "./navbar.styles";
 
@@ -31,16 +32,14 @@ const Navbar = () => {
 		}
 
 		setUser(JSON.parse(localStorage.getItem("profile")));
-	}, [location, user?.token]);
+	}, [location]);
 
 	return (
 		<AppBar className={classes.appBar} position="static" color="inherit">
-			<div className={classes.brandContainer}>
-				<Typography className={classes.heading} component={Link} to="/" variant="h2" align="center">
-					Memories
-				</Typography>
-				<img className={classes.image} src={memories} alt="icon" height="60" />
-			</div>
+			<Link className={classes.brandContainer} to="/">
+				<img src={memoriesText} alt="Memories Text" height="45px" />
+				<img className={classes.image} src={memoriesLogo} alt="icon" height="40px" />
+			</Link>
 			<Toolbar className={classes.toolbar}>
 				{user?.result ? (
 					<div className={classes.profile}>
