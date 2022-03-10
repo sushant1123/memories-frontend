@@ -17,13 +17,13 @@ const PostDetails = () => {
 
 	useEffect(() => {
 		dispatch(getPost(id));
-	}, [id]);
+	}, [id, dispatch]);
 
 	useEffect(() => {
 		if (post) {
 			dispatch(getPostsBySearch({ search: "none", tags: post?.tags.join(",") }));
 		}
-	}, [post]);
+	}, [post, dispatch]);
 
 	if (!post) return null;
 
@@ -78,13 +78,12 @@ const PostDetails = () => {
 				</div>
 			</div>
 
-			{recommendedPosts.length && (
+			{!!recommendedPosts.length && (
 				<div className={classes.section}>
 					<Typography gutterBottom variant="h5">
 						You might also like:
 					</Typography>
 					<Divider />
-
 					<div className={classes.recommendedPosts}>
 						{recommendedPosts.map(({ title, name, message, likes, selectedFile, _id }) => (
 							<div

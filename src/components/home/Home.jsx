@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Container, Grid, Grow, Paper, AppBar, TextField, Button } from "@material-ui/core";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -7,7 +7,7 @@ import ChipInput from "material-ui-chip-input";
 import Pagination from "../Pagination";
 import Form from "../form/Form";
 import Posts from "../posts/Posts";
-import { getPosts, getPostsBySearch } from "../../redux/actions/posts.actions";
+import { getPostsBySearch } from "../../redux/actions/posts.actions";
 import useStyles from "./home.styles";
 
 function useQuery() {

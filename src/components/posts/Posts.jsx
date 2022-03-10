@@ -3,7 +3,7 @@ import Post from "./post/Post";
 import useStyles from "./posts.styles";
 import { useSelector } from "react-redux";
 import { Grid, CircularProgress, Typography } from "@material-ui/core";
-import { START_LOADING, END_LOADING } from "../../redux/constants/loading.constants";
+// import { START_LOADING, END_LOADING } from "../../redux/constants/loading.constants";
 
 const Posts = ({ setCurrentId }) => {
 	const classes = useStyles();
