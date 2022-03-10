@@ -85,7 +85,8 @@ const Post = ({ post, setCurrentId }) => {
 
 				<CardContent>
 					<Typography variant="body2" color="textSecondary" component="p">
-						{post.message}
+						{post.message.split(" ").splice(0, 20).join(" ")}
+						{post.message.split(" ").length > 20 && "..."}
 					</Typography>
 				</CardContent>
 			</ButtonBase>

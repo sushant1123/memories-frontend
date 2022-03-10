@@ -6,6 +6,7 @@ import { useParams, useNavigate } from "react-router-dom";
 
 import { getPost, getPostsBySearch } from "../../redux/actions/posts.actions";
 import useStyles from "./postDetails.styles.js";
+import CommentSection from "./CommentSection";
 
 const PostDetails = () => {
 	const classes = useStyles();
@@ -61,9 +62,11 @@ const PostDetails = () => {
 						<strong>Realtime Chat - coming soon!</strong>
 					</Typography>
 					<Divider style={{ margin: "20px 0" }} />
+
 					<Typography variant="body1">
-						<strong>Comments - coming soon!</strong>
+						<CommentSection post={post} />
 					</Typography>
+
 					<Divider style={{ margin: "20px 0" }} />
 				</div>
 				<div className={classes.imageSection}>
@@ -98,7 +101,8 @@ const PostDetails = () => {
 									{name}
 								</Typography>
 								<Typography gutterBottom variant="subtitle2">
-									{message}
+									{message.split(" ").splice(0, 20).join(" ")}
+									{message.split(" ").length > 20 && "..."}
 								</Typography>
 								<Typography gutterBottom variant="subtitle1">
 									Likes: {likes.length}

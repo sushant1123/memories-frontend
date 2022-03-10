@@ -6,6 +6,7 @@ import {
 	DELETE_POST,
 	LIKE_POST,
 	FETCH_ALL_POSTS_BY_SEARCH,
+	COMMENT_POST,
 } from "../constants/posts.constants";
 
 import { START_LOADING, END_LOADING } from "../constants/loading.constants";
@@ -36,6 +37,12 @@ const postReducer = (state = initialPostState, action) => {
 
 		case FETCH_ALL_POSTS_BY_SEARCH:
 			return { ...state, posts: action.payload };
+
+		case COMMENT_POST:
+			return {
+				...state,
+				posts: state.posts.map((post) => (post._id === action.payload._id ? action.payload : post)),
+			};
 
 		case CREATE_POST:
 			return { ...state, posts: [...state.posts, action.payload] };
