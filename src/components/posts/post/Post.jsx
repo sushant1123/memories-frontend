@@ -63,7 +63,10 @@ const Post = ({ post, setCurrentId }) => {
 						<Button
 							style={{ color: "white" }}
 							size="small"
-							onClick={() => setCurrentId(post._id)}
+							onClick={(e) => {
+								setCurrentId(post._id);
+								e.stopPropagation();
+							}}
 						>
 							<MoreHorizIcon fontSize="medium" />
 						</Button>
