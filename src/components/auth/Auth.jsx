@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import { Avatar, Button, Grid, Paper, Typography, Container } from "@material-ui/core";
+import { Avatar, Button, Grid, Paper, Typography, Container } from "@mui/material";
 
 import { GoogleLogin } from "react-google-login";
 
 import useStyles from "./auth.styles";
-import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Input from "./Input";
 import Icon from "./Icon";
 import { useDispatch } from "react-redux";

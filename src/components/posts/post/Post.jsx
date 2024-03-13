@@ -11,11 +11,11 @@ import {
   Button,
   Typography,
   ButtonBase,
-} from "@material-ui/core";
-import ThumbUpAltIcon from "@material-ui/icons/ThumbUpAlt";
-import ThumbUpAltOutlined from "@material-ui/icons/ThumbUpAltOutlined";
-import DeleteIcon from "@material-ui/icons/Delete";
-import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
+} from "@mui/material";
+import ThumbUpAltIcon from "@mui/icons-material/ThumbUpAlt";
+import ThumbUpAltOutlined from "@mui/icons-material/ThumbUpAltOutlined";
+import DeleteIcon from "@mui/icons-material/Delete";
+import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import { deletePost, likePost } from "../../../redux/actions/posts.actions";
 
 import useStyles from "./post.styles";
@@ -75,7 +75,12 @@ const Post = ({ post, setCurrentId }) => {
   return (
     <Card className={classes.card} raised elevation={6}>
       <ButtonBase className={classes.cardAction} onClick={openPost} component="span" name="test">
-        <CardMedia image={post.selectedFile} className={classes.media} title={post.title} />
+        <CardMedia
+          component="img"
+          image={post.selectedFile}
+          className={classes.media}
+          title={post.title}
+        />
         <div className={classes.overlay}>
           <Typography variant="h6">{post.name}</Typography>
           <Typography variant="body2">{moment(post.createdAt).fromNow()}</Typography>
