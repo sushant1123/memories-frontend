@@ -75,12 +75,7 @@ const Post = ({ post, setCurrentId }) => {
   return (
     <Card className={classes.card} raised elevation={6}>
       <ButtonBase className={classes.cardAction} onClick={openPost} component="span" name="test">
-        <CardMedia
-          component="img"
-          image={post.selectedFile}
-          className={classes.media}
-          title={post.title}
-        />
+        <CardMedia image={post.selectedFile} className={classes.media} title={post.title} />
         <div className={classes.overlay}>
           <Typography variant="h6">{post.name}</Typography>
           <Typography variant="body2">{moment(post.createdAt).fromNow()}</Typography>
