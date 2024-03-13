@@ -12,8 +12,8 @@ https://memories-sush.netlify.app/
 
 ### backend
 
-https://memories-app-mern-app.herokuapp.com/
+https://memories-app-mern-app.onrender.com/
 
 Setup:
 
--   run `npm i && npm start` for both client and server side to start the app
+- run `npm i && npm start` for both client and server side to start the app
