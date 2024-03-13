@@ -7,28 +7,28 @@ import useStyles from "./pagination.styles";
 import { useDispatch, useSelector } from "react-redux";
 
 const Paginate = ({ page }) => {
-	const classes = useStyles();
-	const dispatch = useDispatch();
-	const { numberOfPages } = useSelector((state) => state.posts);
+  const classes = useStyles();
+  const dispatch = useDispatch();
+  const { numberOfPages } = useSelector((state) => state.posts);
 
-	useEffect(() => {
-		if (page) {
-			dispatch(getPosts(page));
-		}
-	}, [page, dispatch]);
+  useEffect(() => {
+    if (page) {
+      dispatch(getPosts(page));
+    }
+  }, [page, dispatch]);
 
-	return (
-		<Pagination
-			classes={{ ul: classes.ul }}
-			count={numberOfPages}
-			page={Number(page) || 1}
-			variant="outlined"
-			color="primary"
-			renderItem={(item) => (
-				<PaginationItem {...item} component={Link} to={`/posts?page=${item.page}`} />
-			)}
-		/>
-	);
+  return (
+    <Pagination
+      classes={{ ul: classes.ul }}
+      count={numberOfPages}
+      page={Number(page) || 1}
+      variant="outlined"
+      color="primary"
+      renderItem={(item) => (
+        <PaginationItem {...item} component={Link} to={`/posts?page=${item.page}`} />
+      )}
+    />
+  );
 };
 
 export default Paginate;
