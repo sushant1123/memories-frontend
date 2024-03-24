@@ -4,16 +4,18 @@ import App from "./App";
 import { Provider } from "react-redux";
 import store from "./redux/store";
 import "./index.styles.css";
-import { createTheme, ThemeProvider } from "@mui/material";
+import { createTheme, ThemeProvider, StyledEngineProvider } from "@mui/material/styles";
 
 const container = document.getElementById("root");
 const theme = createTheme();
 
 const root = createRoot(container);
 root.render(
-  <Provider store={store}>
-    <ThemeProvider theme={theme}>
-      <App />
-    </ThemeProvider>
-  </Provider>
+  <ThemeProvider theme={theme}>
+    <StyledEngineProvider injectFirst>
+      <Provider store={store}>
+        <App />
+      </Provider>
+    </StyledEngineProvider>
+  </ThemeProvider>
 );
