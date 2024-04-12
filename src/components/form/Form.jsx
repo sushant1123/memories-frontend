@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { TextField, Button, Typography, Paper } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import FileBase from "react-file-base64";
 import { useNavigate } from "react-router-dom";
 
 import { createNewPost, updatePost } from "../../redux/actions/posts.actions";
@@ -57,8 +56,24 @@ const Form = ({ currentId, setCurrentId }) => {
     }
   };
 
-  const handleFileUpload = (base64) => {
-    // console.log(base64);
+  const handleFileUpload = async (e) => {
+    const file = e.target.files[0];
+
+    async function getBase64(file) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => {
+          resolve(reader.result);
+        };
+        reader.onerror = reject;
+      });
+    }
+
+    const base64 = await getBase64(file) // `file` your img file
+      .then((res) => res) // `res` base64 of img file
+      .catch((err) => console.log(err));
+
     setPostData({ ...postData, selectedFile: base64 });
   };
 
@@ -110,11 +125,7 @@ const Form = ({ currentId, setCurrentId }) => {
         />
 
         <div className={classes.fileInput}>
-          <FileBase
-            type="file"
-            multiple={false}
-            onDone={({ base64 }) => handleFileUpload(base64)}
-          />
+          <input type="file" name="memories-file" id="memories-file" onChange={handleFileUpload} />
         </div>
 
         <Button
