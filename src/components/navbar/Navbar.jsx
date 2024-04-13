@@ -2,22 +2,21 @@ import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { AppBar, Avatar, Button, Toolbar, Typography } from "@mui/material";
 import { Link, useNavigate, useLocation } from "react-router-dom";
-import decode from "jwt-decode";
+import { jwtDecode } from "jwt-decode";
 
 import memoriesLogo from "../../assets/memories-Logo.png";
 import memoriesText from "../../assets/memories-Text.png";
-import { USER_LOGOUT } from "../../redux/constants/auth.constants";
-import useStyles from "./navbar.styles";
+import { logoutUser } from "../../redux/reducers/authReducer/auth.slice";
+import { classes } from "./navbar.styles";
 
 const Navbar = () => {
-  const classes = useStyles();
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")));
   const dispatch = useDispatch();
   let navigate = useNavigate();
   const location = useLocation();
 
   const logout = () => {
-    dispatch({ type: USER_LOGOUT });
+    dispatch(logoutUser());
 
     navigate("/auth");
     setUser(null);
@@ -26,7 +25,7 @@ const Navbar = () => {
   useEffect(() => {
     const token = user?.token;
     if (token) {
-      const decodedToken = decode(token);
+      const decodedToken = jwtDecode(token);
 
       if (decodedToken.exp * 1000 < new Date().getTime()) logout();
     }
@@ -36,26 +35,21 @@ const Navbar = () => {
   }, [location]);
 
   return (
-    <AppBar className={classes.appBar} position="static" color="inherit">
-      <Link className={classes.brandContainer} to="/">
+    <AppBar sx={classes.appBar} position="static" color="inherit">
+      <Link sx={classes.brandContainer} to="/">
         <img src={memoriesText} alt="Memories Text" height="45px" />
-        <img className={classes.image} src={memoriesLogo} alt="icon" height="40px" />
+        <img style={classes.image} src={memoriesLogo} alt="icon" height="40px" />
       </Link>
-      <Toolbar className={classes.toolbar}>
+      <Toolbar sx={classes.toolbar}>
         {user?.result ? (
-          <div className={classes.profile}>
-            <Avatar className={classes.purple} alt={user?.result.name} src={user?.result.imageUrl}>
+          <div style={classes.profile}>
+            <Avatar sx={classes.purple} alt={user?.result.name} src={user?.result.imageUrl}>
               {user?.result.name.charAt(0)}
             </Avatar>
-            <Typography className={classes.userName} variant="h6">
+            <Typography sx={classes.userName} variant="h6">
               {user?.result.name}
             </Typography>
-            <Button
-              variant="contained"
-              className={classes.logout}
-              color="secondary"
-              onClick={logout}
-            >
+            <Button variant="contained" sx={classes.logout} color="secondary" onClick={logout}>
               Logout
             </Button>
           </div>

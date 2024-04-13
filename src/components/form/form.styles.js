@@ -1,25 +1,22 @@
-import { makeStyles } from "@mui/styles";
-
-export default makeStyles((theme) => ({
+export const classes = {
   root: {
-    "& .MuiTextField-root": {
-      margin: theme.spacing(1),
+    "& .MuiTextFieldRoot": {
+      margin: (theme) => theme.spacing(1),
     },
   },
   paper: {
-    padding: theme.spacing(1),
+    padding: (theme) => theme.spacing(1),
   },
   form: {
     display: "flex",
     flexWrap: "wrap",
     justifyContent: "center",
+    gap: "10px",
   },
   fileInput: {
-    width: "97%",
-    margin: "10px",
+    width: "100%",
   },
-  buttonSubmit: {
-    marginBottom: 10,
-    margin: "0 10px",
+  buttonClear: {
+    marginBottom: "10px",
   },
-}));
+};

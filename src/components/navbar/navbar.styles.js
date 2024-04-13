@@ -1,7 +1,6 @@
-import { makeStyles } from "@mui/styles";
 import { deepPurple } from "@mui/material/colors";
 
-export default makeStyles((theme) => ({
+export const classes = {
   appBar: {
     borderRadius: 15,
     margin: "30px 0",
@@ -10,12 +9,12 @@ export default makeStyles((theme) => ({
     justifyContent: "space-between",
     alignItems: "center",
     padding: "10px 50px",
-    [theme.breakpoints.down("sm")]: {
-      flexDirection: "column",
-    },
+    // [theme.breakpoints.down("sm")]: {
+    //   flexDirection: "column",
+    // },
   },
   heading: {
-    color: theme.palette.primary.main,
+    color: (theme) => theme.palette.primary.main,
     textDecoration: "none",
     fontSize: "2em",
     fontWeight: 300,
@@ -28,20 +27,20 @@ export default makeStyles((theme) => ({
     display: "flex",
     justifyContent: "flex-end",
     width: "400px",
-    [theme.breakpoints.down("sm")]: {
-      width: "auto",
-    },
+    // [theme.breakpoints.down("sm")]: {
+    //   width: "auto",
+    // },
   },
   profile: {
     display: "flex",
     justifyContent: "space-between",
     width: "400px",
     alignItems: "center",
-    [theme.breakpoints.down("sm")]: {
-      width: "auto",
-      marginTop: 20,
-      justifyContent: "center",
-    },
+    // [theme.breakpoints.down("sm")]: {
+    //   width: "auto",
+    //   marginTop: 20,
+    //   justifyContent: "center",
+    // },
   },
   logout: {
     marginLeft: "20px",
@@ -56,7 +55,7 @@ export default makeStyles((theme) => ({
     alignItems: "center",
   },
   purple: {
-    color: theme.palette.getContrastText(deepPurple[500]),
+    color: (theme) => theme.palette.getContrastText(deepPurple[500]),
     backgroundColor: deepPurple[500],
   },
-}));
+};

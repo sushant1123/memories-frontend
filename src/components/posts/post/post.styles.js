@@ -1,6 +1,4 @@
-import { makeStyles } from "@mui/styles";
-
-export default makeStyles({
+export const classes = {
   media: {
     height: 0,
     paddingTop: "56.25%",
@@ -53,4 +51,4 @@ export default makeStyles({
     display: "block",
     textAlign: "initial",
   },
-});
+};

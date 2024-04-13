@@ -1,9 +1,7 @@
 import axios from "axios";
 
-const localHostUrl = "http://localhost:2000";
 const backendURL = "https://memories-app-mern-app.onrender.com";
 
-// const baseUrl = window.location.hostname === "localhost" ? localHostUrl : backendURL;
 const baseUrl = backendURL;
 
 const axiosInstance = axios.create({

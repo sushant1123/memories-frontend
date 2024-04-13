@@ -4,13 +4,11 @@ import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
 import { useParams, useNavigate } from "react-router-dom";
 
-import { getPost, getPostsBySearch } from "../../redux/actions/posts.actions";
-import useStyles from "./postDetails.styles.js";
+import { getPost, getPostsBySearch } from "../../redux/reducers/postReducer/posts.actions.js";
+import { classes } from "./postDetails.styles.js";
 import CommentSection from "./CommentSection";
 
 const PostDetails = () => {
-  const classes = useStyles();
-
   const { post, posts, isLoading } = useSelector((state) => state.posts);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -30,7 +28,7 @@ const PostDetails = () => {
 
   if (isLoading) {
     return (
-      <Paper elevation={6} className={classes.loadingPaper}>
+      <Paper elevation={6} sx={classes.loadingPaper}>
         <CircularProgress size="7em" />
       </Paper>
     );
@@ -44,8 +42,8 @@ const PostDetails = () => {
 
   return (
     <Paper style={{ padding: "20px", borderRadius: "15px" }} elevation={6}>
-      <div className={classes.card}>
-        <div className={classes.section}>
+      <div style={classes.card}>
+        <div style={classes.section}>
           <Typography variant="h3" component="h2">
             {post?.title}
           </Typography>
@@ -69,9 +67,9 @@ const PostDetails = () => {
 
           <Divider style={{ margin: "20px 0" }} />
         </div>
-        <div className={classes.imageSection}>
+        <div style={classes.imageSection}>
           <img
-            className={classes.media}
+            style={classes.media}
             src={
               post?.selectedFile ||
               "https://user-images.githubusercontent.com/194400/49531010-48dad180-f8b1-11e8-8d89-1e61320e1d82.png"
@@ -82,17 +80,23 @@ const PostDetails = () => {
       </div>
 
       {!!recommendedPosts.length && (
-        <div className={classes.section}>
+        <div style={classes.section}>
           <Typography gutterBottom variant="h5">
             You might also like:
           </Typography>
           <Divider />
-          <div className={classes.recommendedPosts}>
+          <div style={classes.recommendedPosts}>
             {recommendedPosts.map(({ title, name, message, likes, selectedFile, _id }) => (
-              <div
-                style={{ margin: "20px", cursor: "pointer" }}
+              <Paper
+                style={{
+                  margin: "10px",
+                  cursor: "pointer",
+                  padding: "4px",
+                  borderRadius: "10px",
+                }}
                 onClick={() => openPost(_id)}
                 key={_id}
+                elevation={5}
               >
                 <Typography gutterBottom variant="h6">
                   {title}
@@ -108,7 +112,7 @@ const PostDetails = () => {
                   Likes: {likes.length}
                 </Typography>
                 <img src={selectedFile} width="200px" alt={title} />
-              </div>
+              </Paper>
             ))}
           </div>
         </div>
