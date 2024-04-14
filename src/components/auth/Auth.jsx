@@ -137,7 +137,7 @@ const Auth = () => {
           </Button>
 
           <GoogleLogin
-            clientId="491668161378-puek3fed64m85ku4oq60up35ritjbgv7.apps.googleusercontent.com"
+            clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}
             render={(renderProps) => (
               <Button
                 sx={classes.googleButton}
