@@ -1,5 +1,5 @@
-import * as api from "../../api/index.api";
-import { USER_AUTH } from "../constants/auth.constants";
+import * as api from "../../../api/index.api.js";
+import { getUserAuth } from "./auth.slice";
 
 //action creators
 export const signup = (formData, navigate) => async (dispatch) => {
@@ -7,7 +7,7 @@ export const signup = (formData, navigate) => async (dispatch) => {
     //signup the user
     const { data } = await api.signUp(formData);
 
-    dispatch({ type: USER_AUTH, payload: data });
+    dispatch(getUserAuth(data));
     //navigate to the home page
     navigate("/");
   } catch (error) {
@@ -19,7 +19,7 @@ export const signin = (formData, navigate) => async (dispatch) => {
   try {
     //signin the user
     const { data } = await api.signIn(formData);
-    dispatch({ type: USER_AUTH, payload: data });
+    dispatch(getUserAuth(data));
 
     //navigate to the home page
     navigate("/");

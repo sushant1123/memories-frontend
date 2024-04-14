@@ -1,12 +1,11 @@
 import React, { useState, useRef } from "react";
 import { Typography, TextField, Button } from "@mui/material";
 import { useDispatch } from "react-redux";
-import { commentPost } from "../../redux/actions/posts.actions";
+import { commentPost } from "../../redux/reducers/postReducer/posts.actions";
 
-import useStyles from "./postDetails.styles";
+import { classes } from "./postDetails.styles";
 
 const CommentSection = ({ post }) => {
-  const classes = useStyles();
   const [comments, setComments] = useState(post?.comments);
   const [comment, setComment] = useState("");
 
@@ -27,8 +26,8 @@ const CommentSection = ({ post }) => {
 
   return (
     <div>
-      <div className={classes.commentsOuterContainer}>
-        <div className={classes.commentsInnerContainer}>
+      <div sx={classes.commentsOuterContainer}>
+        <div style={classes.commentsInnerContainer}>
           <Typography gutterBottom variant="h6">
             Comments
           </Typography>

@@ -1,14 +1,12 @@
-import { makeStyles } from "@mui/styles";
-
-export default makeStyles((theme) => ({
+export const classes = {
   mainContainer: {
     display: "flex",
     alignItems: "center",
   },
   smMargin: {
-    margin: theme.spacing(1),
+    margin: (theme) => theme.spacing(1),
   },
   actionDiv: {
     textAlign: "center",
   },
-}));
+};

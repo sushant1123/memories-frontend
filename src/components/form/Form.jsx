@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { TextField, Button, Typography, Paper } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import FileBase from "react-file-base64";
 import { useNavigate } from "react-router-dom";
 
-import { createNewPost, updatePost } from "../../redux/actions/posts.actions";
-import useStyles from "./form.styles";
+import { createNewPost, updatePost } from "../../redux/reducers/postReducer/posts.actions";
+import { classes } from "./form.styles";
 
 const postDataState = {
   title: "",
@@ -15,7 +14,6 @@ const postDataState = {
 };
 
 const Form = ({ currentId, setCurrentId }) => {
-  const classes = useStyles();
   const [postData, setPostData] = useState(postDataState);
   const post = useSelector((state) =>
     currentId ? state.posts.posts.find((post) => post._id === currentId) : null
@@ -57,14 +55,30 @@ const Form = ({ currentId, setCurrentId }) => {
     }
   };
 
-  const handleFileUpload = (base64) => {
-    // console.log(base64);
+  async function getBase64(file) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        resolve(reader.result);
+      };
+      reader.onerror = reject;
+    });
+  }
+
+  const handleFileUpload = async (e) => {
+    const file = e.target.files[0];
+
+    const base64 = await getBase64(file) // `file` your img file
+      .then((res) => res) // `res` base64 of img file
+      .catch((err) => console.log(err));
+
     setPostData({ ...postData, selectedFile: base64 });
   };
 
   if (!user?.result?.name) {
     return (
-      <Paper className={classes.paper}>
+      <Paper sx={classes.paper}>
         <Typography variant="h6" align="center">
           Please Sign In to create your own memories and like other's memories.
         </Typography>
@@ -73,11 +87,11 @@ const Form = ({ currentId, setCurrentId }) => {
   }
 
   return (
-    <Paper className={classes.paper} elevation={6}>
+    <Paper sx={classes.paper} elevation={6}>
       <form
         autoComplete="off"
         noValidate
-        className={`${classes.form} ${classes.root}`}
+        style={{ ...classes.form, ...classes.root }}
         onSubmit={handleSubmit}
       >
         <Typography variant="h6">{currentId ? "Updating" : "Creating"} a Memory</Typography>
@@ -109,22 +123,11 @@ const Form = ({ currentId, setCurrentId }) => {
           onChange={handleChange}
         />
 
-        <div className={classes.fileInput}>
-          <FileBase
-            type="file"
-            multiple={false}
-            onDone={({ base64 }) => handleFileUpload(base64)}
-          />
+        <div style={classes.fileInput}>
+          <input type="file" name="memories-file" id="memories-file" onChange={handleFileUpload} />
         </div>
 
-        <Button
-          className={classes.buttonSubmit}
-          variant="contained"
-          color="primary"
-          size="large"
-          type="submit"
-          fullWidth
-        >
+        <Button variant="contained" color="primary" size="large" type="submit" fullWidth>
           Submit
         </Button>
 
@@ -134,7 +137,7 @@ const Form = ({ currentId, setCurrentId }) => {
           size="small"
           fullWidth
           onClick={clearInputs}
-          style={{ margin: "0 10px 10px" }}
+          sx={classes.buttonClear}
         >
           Clear
         </Button>

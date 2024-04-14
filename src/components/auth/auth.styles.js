@@ -1,30 +1,28 @@
-import { makeStyles } from "@mui/styles";
-
-export default makeStyles((theme) => ({
+export const classes = {
   paper: {
-    marginTop: theme.spacing(8),
+    marginTop: (theme) => theme.spacing(8),
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    padding: theme.spacing(2),
+    padding: (theme) => theme.spacing(2),
   },
   root: {
     "& .MuiTextField-root": {
-      margin: theme.spacing(1),
+      margin: (theme) => theme.spacing(1),
     },
   },
   avatar: {
-    margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
+    margin: (theme) => theme.spacing(1),
+    backgroundColor: (theme) => theme.palette.secondary.main,
   },
   form: {
     width: "100%", // Fix IE 11 issue.
-    marginTop: theme.spacing(3),
+    marginTop: (theme) => theme.spacing(3),
   },
   submit: {
-    margin: theme.spacing(3, 0, 2),
+    margin: (theme) => theme.spacing(3, 0, 2),
   },
   googleButton: {
-    marginBottom: theme.spacing(2),
+    marginBottom: (theme) => theme.spacing(2),
   },
-}));
+};

@@ -1,16 +1,16 @@
 import React, { useState } from "react";
 import { Avatar, Button, Grid, Paper, Typography, Container } from "@mui/material";
 
-import { GoogleLogin } from "react-google-login";
+import GoogleLogin from "@leecheuk/react-google-login";
 
-import useStyles from "./auth.styles";
+import { classes } from "./auth.styles";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Input from "./Input";
 import Icon from "./Icon";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { signin, signup } from "../../redux/actions/auth.actions.js";
-import { USER_AUTH } from "../../redux/constants/auth.constants";
+import { signin, signup } from "../../redux/reducers/authReducer/auth.actions.js";
+import { getUserAuth } from "../../redux/reducers/authReducer/auth.slice.js";
 
 const initialUserState = {
   firstName: "",
@@ -21,7 +21,6 @@ const initialUserState = {
 };
 
 const Auth = () => {
-  const classes = useStyles();
   const [isSignup, setIsSignup] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState(initialUserState);
@@ -31,13 +30,11 @@ const Auth = () => {
   const dispatch = useDispatch();
 
   const googleSuccess = async (response) => {
-    // const result = response.profileObj; // if we do not have response obj then we get cannot read property profileObj of undefined
-
     const result = response?.profileObj; //undefined     ? is a chaining operator
     const token = response?.tokenId; //undefined     ? is a chaining operator
 
     try {
-      dispatch({ type: USER_AUTH, payload: { result, token } });
+      dispatch(getUserAuth({ result, token }));
 
       //after successfully sign in, automatically navigate to home route
       navigate("/");
@@ -54,7 +51,6 @@ const Auth = () => {
   //show signup or signin mode based on onClick
   const switchMode = () => {
     setFormData(initialUserState);
-    // setIsSignup(!isSignup);
     setIsSignup((prevIsSignup) => !prevIsSignup);
     setShowPassword(false);
   };
@@ -62,7 +58,6 @@ const Auth = () => {
   //on click on eye icon, show password
   const handleShowPassword = () => {
     setShowPassword(!showPassword);
-    // setShowPassword((prevState) => !prevState);
   };
 
   const handleChange = (e) => {
@@ -73,7 +68,6 @@ const Auth = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // console.log(formData);
 
     if (isSignup) {
       dispatch(signup(formData, navigate));
@@ -84,13 +78,13 @@ const Auth = () => {
 
   return (
     <Container component={"main"} maxWidth="xs">
-      <Paper className={classes.paper} elevation={3}>
-        <Avatar className={classes.avatar}>
+      <Paper sx={classes.paper} elevation={3}>
+        <Avatar sx={classes.avatar}>
           <LockOutlinedIcon />
         </Avatar>
         {/* <Typography variant="h5">{isSignup ? "Sign In" : "Sign Up"}</Typography> */}
         <Typography variant="h5">{isSignup ? "Sign Up" : "Sign In"}</Typography>
-        <form action="" className={classes.form} onSubmit={handleSubmit}>
+        <form action="" style={classes.form} onSubmit={handleSubmit}>
           <Grid container spacing={2}>
             {isSignup && (
               <>
@@ -138,13 +132,7 @@ const Auth = () => {
             ) : null}
           </Grid>
 
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={classes.submit}
-          >
+          <Button type="submit" fullWidth variant="contained" color="primary" sx={classes.submit}>
             {isSignup ? "Sign Up" : "Sign In"}
           </Button>
 
@@ -152,7 +140,7 @@ const Auth = () => {
             clientId="491668161378-puek3fed64m85ku4oq60up35ritjbgv7.apps.googleusercontent.com"
             render={(renderProps) => (
               <Button
-                className={classes.googleButton}
+                sx={classes.googleButton}
                 color="primary"
                 fullWidth
                 onClick={renderProps.onClick}
