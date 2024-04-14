@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Avatar, Button, Grid, Paper, Typography, Container } from "@mui/material";
 
-import { GoogleLogin } from "react-google-login";
+import GoogleLogin from "@leecheuk/react-google-login";
 
 import { classes } from "./auth.styles";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";

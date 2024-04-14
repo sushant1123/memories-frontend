@@ -79,7 +79,7 @@ const Post = ({ post, setCurrentId }) => {
           <Typography variant="body2">{moment(post.createdAt).fromNow()}</Typography>
         </div>
 
-        {(user?.result.googleId === post?.creator || user?.result._id === post?.creator) && (
+        {(user?.result?.googleId === post?.creator || user?.result?._id === post?.creator) && (
           <div style={classes.overlay2}>
             <Button
               style={{ color: "white" }}
@@ -116,7 +116,7 @@ const Post = ({ post, setCurrentId }) => {
         <Button color="primary" size="small" disabled={!user?.result} onClick={handleLikeClick}>
           <Likes />
         </Button>
-        {(user?.result.googleId === post?.creator || user?.result._id === post?.creator) && (
+        {(user?.result?.googleId === post?.creator || user?.result?._id === post?.creator) && (
           <Button color="secondary" size="small" onClick={() => dispatch(deletePost(post._id))}>
             <DeleteIcon fontSize="small" /> Delete
           </Button>
